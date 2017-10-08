@@ -11,6 +11,7 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./hello.obj" \
+"./led.obj" \
 "../lnk_msp430fr5994.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibmpu_init.a \
@@ -155,8 +156,8 @@ Blinkenlights.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "hello.obj" 
-	-$(RM) "hello.d" 
+	-$(RM) "hello.obj" "led.obj" 
+	-$(RM) "hello.d" "led.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

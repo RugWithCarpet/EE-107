@@ -1,1 +1,1 @@
-"./hello.obj" "../lnk_msp430fr5994.cmd" -llibmpu_init.a -llibmath.a -llibc.a 
+"./hello.obj" "./led.obj" "../lnk_msp430fr5994.cmd" -llibmpu_init.a -llibmath.a -llibc.a 

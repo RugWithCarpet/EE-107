@@ -9,21 +9,27 @@ CMD_SRCS += \
 ../lnk_msp430fr5994.cmd 
 
 C_SRCS += \
-../hello.c 
+../hello.c \
+../led.c 
 
 C_DEPS += \
-./hello.d 
+./hello.d \
+./led.d 
 
 OBJS += \
-./hello.obj 
+./hello.obj \
+./led.obj 
 
 OBJS__QUOTED += \
-"hello.obj" 
+"hello.obj" \
+"led.obj" 
 
 C_DEPS__QUOTED += \
-"hello.d" 
+"hello.d" \
+"led.d" 
 
 C_SRCS__QUOTED += \
-"../hello.c" 
+"../hello.c" \
+"../led.c" 
 
 
