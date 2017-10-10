@@ -14,6 +14,8 @@ int main(void)
     led_on();
     led_toggle();
 
+    //enable global interrupts
+
 	return 0;
 
 
