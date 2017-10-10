@@ -12,7 +12,7 @@ void timerA0_init();
 
 void timerA0_reset();
 
-void timerA0_set(uint16_t period);
+//void timerA0_set(uint16_t period);
 
 #pragma vector = TIMER0_A0_VECTOR
 __interrupt void Timer0_A0_ISR (void){}

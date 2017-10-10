@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include <msp430.h> 
+#include <msp430.h>
+#include "led.h"
+
 
 
 /**
@@ -7,10 +9,25 @@
  */
 int main(void)
 {
-	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
-	PM5CTL0 &= ~LOCKLPM5;//PMM_unlockLPM5(), unlocks pin settings
-	printf("Hello World!\n"); //this will appear in the debug console
-	P3DIR |= 0b00100000; //set port 3 pin 5 to output mode
-	P3OUT  = 0b00000000; //set port 3 pin 5 to low, LED is active-low. LED on board should now be on.
+    led_init();
+
+//    int j = 0;
+//    for (j = 0; j < 10; j++) {
+//        led_on();
+//
+//        int i = 0;
+//        for (i = 0; i < 10000; i++) { }
+//
+//        led_toggle();
+//    }
+
+    led_on();
+    led_toggle();
+
+
+
+
 	return 0;
+
+
 }
