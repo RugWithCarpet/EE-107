@@ -9,27 +9,33 @@ CMD_SRCS += \
 ../lnk_msp430fr5994.cmd 
 
 C_SRCS += \
-../hello.c \
-../led.c 
+../led.c \
+../main.c \
+../timer.c 
 
 C_DEPS += \
-./hello.d \
-./led.d 
+./led.d \
+./main.d \
+./timer.d 
 
 OBJS += \
-./hello.obj \
-./led.obj 
+./led.obj \
+./main.obj \
+./timer.obj 
 
 OBJS__QUOTED += \
-"hello.obj" \
-"led.obj" 
+"led.obj" \
+"main.obj" \
+"timer.obj" 
 
 C_DEPS__QUOTED += \
-"hello.d" \
-"led.d" 
+"led.d" \
+"main.d" \
+"timer.d" 
 
 C_SRCS__QUOTED += \
-"../hello.c" \
-"../led.c" 
+"../led.c" \
+"../main.c" \
+"../timer.c" 
 
 
