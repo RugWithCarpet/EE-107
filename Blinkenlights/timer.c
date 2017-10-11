@@ -8,12 +8,10 @@
 #include "timer.h"
 
 void timerA0_init() {
-    TA0CTL = TACLR;
-    TA0CTL = MC_0;
+    TA0CTL = TACLR; //clear timer
+    TA0CTL = MC_0; //stop timer
     TA0CTL = TASSEL_2 + MC_1; //SMCLK (1 MHz), Up Mode (To TA0CCR0), clear timer
     TA0CCTL0 = CCIE; //enable interrupts
-
-    //set timer divider
 };
 
 void timerA0_reset() {
