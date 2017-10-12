@@ -15,9 +15,9 @@ void timerA0_init() {
 };
 
 void timerA0_reset() {
-    TA0R = 0;
+    TA0R = 0; //set the count in the timer to 0
 };
 
 void timerA0_set(uint16_t period) {
-    TA0CCR0 = period;
+    TA0CCR0 = period; //set the max value to the given 'period'
 };
