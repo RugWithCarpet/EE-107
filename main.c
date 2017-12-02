@@ -2,9 +2,10 @@
 #include <msp430.h>
 #include "driverlib.h"
 #include "led.h"
-#include "timer.h"
 #include "adc.h"
 #include "mom_button.h"
+
+uint8_t volatile recording = 0;
 
 int main(void)
 {
@@ -19,17 +20,30 @@ int main(void)
 
 	button_init();
     led_init();
-    //adc_init();
+    adc_init();
+    //still need to configure SPI to communicate with SD card (like in lab2)
+
     __enable_interrupt(); //enable global interrupts
+
+    while (true) {
+    	if (recording) {
+    	    ADC12_B_startConversion(ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
+    	    //does DMA need to enabled here or can it be enabled from the beginning?
+    	} else {
+    		//stop ADC conversions, stop DMA?,s start SD card transfer
+    	}
+    }
+
     return 0;
 }
-
-#pragma vector = TIMER0_A0_VECTOR
-    __interrupt void Timer0_A0_ISR (void) {
-    }
 
 #pragma vector=PORT4_VECTOR
 __interrupt void PORT4_ISR (void) {
 	led_toggle();
 	button_clearInterrupt();
+	if(recording) { //stop recording
+		recording = 0;
+	} else { //start recording
+		recording = 1;
+	}
 }
