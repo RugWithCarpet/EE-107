@@ -12,7 +12,7 @@
 #include "driverlib.h"
 
 void uart_init();
-static inline void uart_tx_byte(uint8_t data);
-static inline uint8_t uart_rx_byte();
+inline void uart_tx_byte(uint8_t data);
+inline uint8_t uart_rx_byte();
 
 #endif /* UART_H_ */

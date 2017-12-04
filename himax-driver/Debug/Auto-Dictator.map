@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v16.9.4                     
 ******************************************************************************
->> Linked Mon Dec 04 15:37:31 2017
+>> Linked Mon Dec 04 15:45:55 2017
 
 OUTPUT FILE NAME:   <Auto-Dictator.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 0000403e
@@ -80,7 +80,7 @@ MEMORY CONFIGURATION
   INT53                 0000fffa   00000002  00000002  00000000  RWIX
   INT54                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FRAM2                 00010000   00034000  00020186  00013e7a  RWIX
+  FRAM2                 00010000   00034000  000201b4  00013e4c  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -276,7 +276,7 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_ld_eabi.lib : boot.obj (.reset)
 
-.text      0    0002f400    00000d86     
+.text      0    0002f400    00000db4     
                   0002f400    00000158     adc.obj (.text:adc_init)
                   0002f558    000000d4     main.obj (.text:main)
                   0002f62c    000000a8     rts430x_lc_ld_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
@@ -308,37 +308,39 @@ SYSNMI     0    0000fffc    00000002
                   0002ff62    00000026     adc12_b.obj (.text:ADC12_B_setupSamplingTimer)
                   0002ff88    00000024     adc12_b.obj (.text:ADC12_B_enableInterrupt)
                   0002ffac    00000024     rts430x_lc_ld_eabi.lib : mult32_f5hw.obj (.text)
-                  0002ffd0    0000001e     gpio.obj (.text:GPIO_clearInterrupt)
-                  0002ffee    0000001e     gpio.obj (.text:GPIO_disableInterrupt)
-                  0003000c    0000001e     gpio.obj (.text:GPIO_enableInterrupt)
-                  0003002a    0000001c     gpio.obj (.text:GPIO_toggleOutputOnPin)
-                  00030046    0000001a     cs.obj (.text:CS_setExternalClockSource)
-                  00030060    00000016     wdt_a.obj (.text:WDT_A_hold)
-                  00030076    00000016     rts430x_lc_ld_eabi.lib : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
-                  0003008c    00000010     cs.obj (.text:CS_turnOnSMCLK)
-                  0003009c    00000010     dma.obj (.text:DMA_disableTransfers)
-                  000300ac    00000010     dma.obj (.text:DMA_enableTransfers)
-                  000300bc    0000000e     adc12_b.obj (.text:ADC12_B_getMemoryAddressForDMA)
-                  000300ca    0000000e     dma.obj (.text:DMA_clearInterrupt)
-                  000300d8    0000000e     dma.obj (.text:DMA_disableInterrupt)
-                  000300e6    0000000e     dma.obj (.text:DMA_enableInterrupt)
-                  000300f4    0000000e     eusci_a_uart.obj (.text:EUSCI_A_UART_clearInterrupt)
-                  00030102    0000000e     led.obj (.text:led_init)
-                  00030110    0000000e     led.obj (.text:led_toggle)
-                  0003011e    0000000c     adc12_b.obj (.text:ADC12_B_disable)
-                  0003012a    0000000c     adc12_b.obj (.text:ADC12_B_enable)
-                  00030136    0000000c     mom_button.obj (.text:button_clearInterrupt)
-                  00030142    0000000a     adc12_b.obj (.text:ADC12_B_isBusy)
-                  0003014c    00000008     pmm.obj (.text:PMM_unlockLPM5)
-                  00030154    00000008     timer_a.obj (.text:Timer_A_stop)
-                  0003015c    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_disable)
-                  00030162    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_enable)
-                  00030168    00000006     timer_a.obj (.text:Timer_A_clear)
-                  0003016e    00000006     timer_a.obj (.text:Timer_A_clearTimerInterrupt)
-                  00030174    00000006     timer_a.obj (.text:Timer_A_startCounter)
-                  0003017a    00000006     rts430x_lc_ld_eabi.lib : exit.obj (.text:abort)
-                  00030180    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  00030184    00000002                            : startup.obj (.text:_system_post_cinit)
+                  0002ffd0    00000022     eusci_a_uart.obj (.text:EUSCI_A_UART_transmitData)
+                  0002fff2    0000001e     gpio.obj (.text:GPIO_clearInterrupt)
+                  00030010    0000001e     gpio.obj (.text:GPIO_disableInterrupt)
+                  0003002e    0000001e     gpio.obj (.text:GPIO_enableInterrupt)
+                  0003004c    0000001c     gpio.obj (.text:GPIO_toggleOutputOnPin)
+                  00030068    0000001a     cs.obj (.text:CS_setExternalClockSource)
+                  00030082    00000016     wdt_a.obj (.text:WDT_A_hold)
+                  00030098    00000016     rts430x_lc_ld_eabi.lib : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
+                  000300ae    00000010     cs.obj (.text:CS_turnOnSMCLK)
+                  000300be    00000010     dma.obj (.text:DMA_disableTransfers)
+                  000300ce    00000010     dma.obj (.text:DMA_enableTransfers)
+                  000300de    0000000e     adc12_b.obj (.text:ADC12_B_getMemoryAddressForDMA)
+                  000300ec    0000000e     dma.obj (.text:DMA_clearInterrupt)
+                  000300fa    0000000e     dma.obj (.text:DMA_disableInterrupt)
+                  00030108    0000000e     dma.obj (.text:DMA_enableInterrupt)
+                  00030116    0000000e     eusci_a_uart.obj (.text:EUSCI_A_UART_clearInterrupt)
+                  00030124    0000000e     led.obj (.text:led_init)
+                  00030132    0000000e     led.obj (.text:led_toggle)
+                  00030140    0000000c     adc12_b.obj (.text:ADC12_B_disable)
+                  0003014c    0000000c     adc12_b.obj (.text:ADC12_B_enable)
+                  00030158    0000000c     mom_button.obj (.text:button_clearInterrupt)
+                  00030164    0000000c     uart.obj (.text:uart_tx_byte)
+                  00030170    0000000a     adc12_b.obj (.text:ADC12_B_isBusy)
+                  0003017a    00000008     pmm.obj (.text:PMM_unlockLPM5)
+                  00030182    00000008     timer_a.obj (.text:Timer_A_stop)
+                  0003018a    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_disable)
+                  00030190    00000006     eusci_a_uart.obj (.text:EUSCI_A_UART_enable)
+                  00030196    00000006     timer_a.obj (.text:Timer_A_clear)
+                  0003019c    00000006     timer_a.obj (.text:Timer_A_clearTimerInterrupt)
+                  000301a2    00000006     timer_a.obj (.text:Timer_A_startCounter)
+                  000301a8    00000006     rts430x_lc_ld_eabi.lib : exit.obj (.text:abort)
+                  000301ae    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  000301b2    00000002                            : startup.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
@@ -347,24 +349,24 @@ MODULE SUMMARY
     .\
        main.obj                   274    2         128002 
        adc.obj                    344    42        0      
-       uart.obj                   146    16        0      
+       uart.obj                   158    16        0      
        dma.obj                    84     10        0      
        mom_button.obj             76     0         0      
        led.obj                    28     0         0      
     +--+--------------------------+------+---------+---------+
-       Total:                     952    70        128002 
+       Total:                     964    70        128002 
                                                           
     .\driverlib\MSP430FR5xx_6xx\
        gpio.obj                   468    28        0      
        adc12_b.obj                462    0         0      
        cs.obj                     354    0         8      
        dma.obj                    298    0         0      
+       eusci_a_uart.obj           214    0         0      
        timer_a.obj                206    0         0      
-       eusci_a_uart.obj           180    0         0      
        wdt_a.obj                  22     0         0      
        pmm.obj                    8      0         0      
     +--+--------------------------+------+---------+---------+
-       Total:                     1998   28        8      
+       Total:                     2032   28        8      
                                                           
     C:\ti\ccsv7\tools\compiler\ti-cgt-msp430_16.9.4.LTS\lib\rts430x_lc_ld_eabi.lib
        autoinit_wdt.obj           168    0         0      
@@ -422,7 +424,7 @@ MODULE SUMMARY
        Stack:                     0      0         160    
        Linker Generated:          0      23        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               3558   195       128170 
+       Grand Total:               3604   195       128170 
 
 
 LINKER GENERATED COPY TABLES
@@ -674,13 +676,13 @@ address   name
 00000873  ADC12MEM9_H                               
 00000872  ADC12MEM9_L                               
 0002fc42  ADC12_B_configureMemory                   
-0003011e  ADC12_B_disable                           
+00030140  ADC12_B_disable                           
 0002feae  ADC12_B_disableConversions                
-0003012a  ADC12_B_enable                            
+0003014c  ADC12_B_enable                            
 0002ff88  ADC12_B_enableInterrupt                   
-000300bc  ADC12_B_getMemoryAddressForDMA            
+000300de  ADC12_B_getMemoryAddressForDMA            
 0002f76e  ADC12_B_init                              
-00030142  ADC12_B_isBusy                            
+00030170  ADC12_B_isBusy                            
 0002ff62  ADC12_B_setupSamplingTimer                
 0002fd5c  ADC12_B_startConversion                   
 000009c0  AESACTL0                                  
@@ -713,7 +715,7 @@ address   name
 000004bc  BIN2BCD                                   
 000004bd  BIN2BCD_H                                 
 000004bc  BIN2BCD_L                                 
-0003017a  C$$EXIT                                   
+000301a8  C$$EXIT                                   
 0000043e  CAPTIO0CTL                                
 0000043f  CAPTIO0CTL_H                              
 0000043e  CAPTIO0CTL_L                              
@@ -808,10 +810,10 @@ address   name
 0000016d  CSCTL6_H                                  
 0000016c  CSCTL6_L                                  
 0002fb84  CS_initClockSignal                        
-00030046  CS_setExternalClockSource                 
+00030068  CS_setExternalClockSource                 
 0002f806  CS_turnOnHFXT                             
 0002fdd8  CS_turnOnLFXT                             
-0003008c  CS_turnOnSMCLK                            
+000300ae  CS_turnOnSMCLK                            
 00000510  DMA0CTL                                   
 00000511  DMA0CTL_H                                 
 00000510  DMA0CTL_L                                 
@@ -899,18 +901,19 @@ address   name
 0000050e  DMAIV                                     
 0000050f  DMAIV_H                                   
 0000050e  DMAIV_L                                   
-000300ca  DMA_clearInterrupt                        
-000300d8  DMA_disableInterrupt                      
-0003009c  DMA_disableTransfers                      
-000300e6  DMA_enableInterrupt                       
-000300ac  DMA_enableTransfers                       
+000300ec  DMA_clearInterrupt                        
+000300fa  DMA_disableInterrupt                      
+000300be  DMA_disableTransfers                      
+00030108  DMA_enableInterrupt                       
+000300ce  DMA_enableTransfers                       
 0002f92c  DMA_init                                  
 0002fe7e  DMA_setDstAddress                         
 0002fedc  DMA_setSrcAddress                         
-000300f4  EUSCI_A_UART_clearInterrupt               
-0003015c  EUSCI_A_UART_disable                      
-00030162  EUSCI_A_UART_enable                       
+00030116  EUSCI_A_UART_clearInterrupt               
+0003018a  EUSCI_A_UART_disable                      
+00030190  EUSCI_A_UART_enable                       
 0002f6d4  EUSCI_A_UART_init                         
+0002ffd0  EUSCI_A_UART_transmitData                 
 00000140  FRCTL0                                    
 00000141  FRCTL0_H                                  
 00000140  FRCTL0_L                                  
@@ -920,15 +923,15 @@ address   name
 00000146  GCCTL1                                    
 00000147  GCCTL1_H                                  
 00000146  GCCTL1_L                                  
-0002ffd0  GPIO_clearInterrupt                       
-0002ffee  GPIO_disableInterrupt                     
-0003000c  GPIO_enableInterrupt                      
+0002fff2  GPIO_clearInterrupt                       
+00030010  GPIO_disableInterrupt                     
+0003002e  GPIO_enableInterrupt                      
 0002ff0a  GPIO_selectInterruptEdge                  
 0002fcdc  GPIO_setAsInputPin                        
 0002fc92  GPIO_setAsInputPinWithPullDownResistor    
 0002fe4a  GPIO_setAsOutputPin                       
 0002faa0  GPIO_setAsPeripheralModuleFunctionInputPin
-0003002a  GPIO_toggleOutputOnPin                    
+0003004c  GPIO_toggleOutputOnPin                    
 00000a80  LEACAP                                    
 00000a82  LEACAPH                                   
 00000a80  LEACAPL                                   
@@ -1318,7 +1321,7 @@ address   name
 0000012a  PMMIFG                                    
 0000012b  PMMIFG_H                                  
 0000012a  PMMIFG_L                                  
-0003014c  PMM_unlockLPM5                            
+0003017a  PMM_unlockLPM5                            
 00004000  PORT4_ISR                                 
 00000158  RCCTL0                                    
 00000159  RCCTL0_H                                  
@@ -1629,12 +1632,12 @@ address   name
 000003d0  TB0R                                      
 000003d1  TB0R_H                                    
 000003d0  TB0R_L                                    
-00030168  Timer_A_clear                             
-0003016e  Timer_A_clearTimerInterrupt               
+00030196  Timer_A_clear                             
+0003019c  Timer_A_clearTimerInterrupt               
 0002fe12  Timer_A_initCompareMode                   
 0002f9ae  Timer_A_initUpMode                        
-00030174  Timer_A_startCounter                      
-00030154  Timer_A_stop                              
+000301a2  Timer_A_startCounter                      
+00030182  Timer_A_stop                              
 000005d0  UCA0ABCTL                                 
 000005d1  UCA0ABCTL_H                               
 000005d0  UCA0ABCTL_L                               
@@ -1986,7 +1989,7 @@ address   name
 0000015c  WDTCTL                                    
 0000015d  WDTCTL_H                                  
 0000015c  WDTCTL_L                                  
-00030060  WDT_A_hold                                
+00030082  WDT_A_hold                                
 00002c00  __STACK_END                               
 000000a0  __STACK_SIZE                              
 UNDEFED   __TI_BINIT_Base                           
@@ -1999,7 +2002,7 @@ UNDEFED   __TI_INITARRAY_Base
 UNDEFED   __TI_INITARRAY_Limit                      
 00004058  __TI_ISR_TRAP                             
 0002fa2a  __TI_decompress_lzss                      
-00030076  __TI_decompress_none                      
+00030098  __TI_decompress_none                      
 0000ffb4  __TI_int18                                
 0000ffb6  __TI_int19                                
 0000ffb8  __TI_int20                                
@@ -2061,11 +2064,11 @@ ffffffff  __c_args__
 0000403e  _c_int00_noargs_noexit                    
 0000fffe  _reset_vector                             
 00002b60  _stack                                    
-00030184  _system_post_cinit                        
-00030180  _system_pre_init                          
-0003017a  abort                                     
+000301b2  _system_post_cinit                        
+000301ae  _system_pre_init                          
+000301a8  abort                                     
 0002f400  adc_init                                  
-00030136  button_clearInterrupt                     
+00030158  button_clearInterrupt                     
 0002fd1c  button_init                               
 0002fb12  copy_in                                   
 0002fbee  dma_init                                  
@@ -2073,15 +2076,15 @@ ffffffff  __c_args__
 00004000  fram_ipe_start                            
 00004000  fram_rw_start                             
 00004000  fram_rx_start                             
-00030102  led_init                                  
-00030110  led_toggle                                
+00030124  led_init                                  
+00030132  led_toggle                                
 0002f558  main                                      
 0002ff38  memcpy                                    
 00010000  snd_buffer                                
 00001c08  start_recording                           
 00001c09  stop_recording                            
 0002f89a  uart_init                                 
-UNDEFED   uart_tx_byte                              
+00030164  uart_tx_byte                              
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -3687,38 +3690,40 @@ address   name
 0002ff62  ADC12_B_setupSamplingTimer                
 0002ff88  ADC12_B_enableInterrupt                   
 0002ffac  __mspabi_mpyl_f5hw                        
-0002ffd0  GPIO_clearInterrupt                       
-0002ffee  GPIO_disableInterrupt                     
-0003000c  GPIO_enableInterrupt                      
-0003002a  GPIO_toggleOutputOnPin                    
-00030046  CS_setExternalClockSource                 
-00030060  WDT_A_hold                                
-00030076  __TI_decompress_none                      
-0003008c  CS_turnOnSMCLK                            
-0003009c  DMA_disableTransfers                      
-000300ac  DMA_enableTransfers                       
-000300bc  ADC12_B_getMemoryAddressForDMA            
-000300ca  DMA_clearInterrupt                        
-000300d8  DMA_disableInterrupt                      
-000300e6  DMA_enableInterrupt                       
-000300f4  EUSCI_A_UART_clearInterrupt               
-00030102  led_init                                  
-00030110  led_toggle                                
-0003011e  ADC12_B_disable                           
-0003012a  ADC12_B_enable                            
-00030136  button_clearInterrupt                     
-00030142  ADC12_B_isBusy                            
-0003014c  PMM_unlockLPM5                            
-00030154  Timer_A_stop                              
-0003015c  EUSCI_A_UART_disable                      
-00030162  EUSCI_A_UART_enable                       
-00030168  Timer_A_clear                             
-0003016e  Timer_A_clearTimerInterrupt               
-00030174  Timer_A_startCounter                      
-0003017a  C$$EXIT                                   
-0003017a  abort                                     
-00030180  _system_pre_init                          
-00030184  _system_post_cinit                        
+0002ffd0  EUSCI_A_UART_transmitData                 
+0002fff2  GPIO_clearInterrupt                       
+00030010  GPIO_disableInterrupt                     
+0003002e  GPIO_enableInterrupt                      
+0003004c  GPIO_toggleOutputOnPin                    
+00030068  CS_setExternalClockSource                 
+00030082  WDT_A_hold                                
+00030098  __TI_decompress_none                      
+000300ae  CS_turnOnSMCLK                            
+000300be  DMA_disableTransfers                      
+000300ce  DMA_enableTransfers                       
+000300de  ADC12_B_getMemoryAddressForDMA            
+000300ec  DMA_clearInterrupt                        
+000300fa  DMA_disableInterrupt                      
+00030108  DMA_enableInterrupt                       
+00030116  EUSCI_A_UART_clearInterrupt               
+00030124  led_init                                  
+00030132  led_toggle                                
+00030140  ADC12_B_disable                           
+0003014c  ADC12_B_enable                            
+00030158  button_clearInterrupt                     
+00030164  uart_tx_byte                              
+00030170  ADC12_B_isBusy                            
+0003017a  PMM_unlockLPM5                            
+00030182  Timer_A_stop                              
+0003018a  EUSCI_A_UART_disable                      
+00030190  EUSCI_A_UART_enable                       
+00030196  Timer_A_clear                             
+0003019c  Timer_A_clearTimerInterrupt               
+000301a2  Timer_A_startCounter                      
+000301a8  C$$EXIT                                   
+000301a8  abort                                     
+000301ae  _system_pre_init                          
+000301b2  _system_post_cinit                        
 ffffffff  __TI_pprof_out_hndl                       
 ffffffff  __TI_prof_data_size                       
 ffffffff  __TI_prof_data_start                      
@@ -3727,6 +3732,5 @@ UNDEFED   __TI_BINIT_Base
 UNDEFED   __TI_BINIT_Limit                          
 UNDEFED   __TI_INITARRAY_Base                       
 UNDEFED   __TI_INITARRAY_Limit                      
-UNDEFED   uart_tx_byte                              
 
-[1640 symbols]
+[1641 symbols]

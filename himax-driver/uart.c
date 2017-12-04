@@ -8,7 +8,6 @@
 #include "uart.h"
 
 void uart_init() {
-	// LAB 2 CODE
 	// * Setup crystal clock (LFXT low frequency crystal) on Port J
 	// * Set Pin 4, 5 to input Primary Module Function, LFXT.
 	// * Math is easier for baud rate with this low-frequency clock.
