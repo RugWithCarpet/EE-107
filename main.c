@@ -15,13 +15,15 @@ bool volatile start_recording = 0;
 bool volatile stop_recording = 0;
 
 #pragma PERSISTENT(snd_buffer)
-uint8_t snd_buffer[128000] = {0}; //128 kB of data for sound = (2 sec)(32000 sample/sec)(2 bytes/sample)
+uint32_t snd_buffer[8000] = {0}; //128 kB of data for sound = (2 sec)(32000 sample/sec)(2 bytes/sample)
 
 int main(void)
 {
 	WDT_A_hold(WDT_A_BASE); // stop watchdog
 	PMM_unlockLPM5(); //does this have to be done before or after changing pin settings?
-
+	button_init();
+	led_init();
+	__enable_interrupt(); //enable global interrupts
 	CS_setExternalClockSource(32000, 8000000); //LFXT is 32KHz, HFXT is 8MHz
 	CS_turnOnHFXT(CS_HFXT_DRIVE_4MHZ_8MHZ); //turn on HFXT
 
@@ -30,8 +32,6 @@ int main(void)
 
     CS_turnOnSMCLK();
 
-	button_init();
-    led_init();
     adc_init();
     dma_init();
 
@@ -42,35 +42,36 @@ int main(void)
 					  );
 
 	DMA_setDstAddress(DMA_CHANNEL_0,
-					  snd_buffer,
+					  *snd_buffer,
 					  DMA_DIRECTION_INCREMENT);
-	DMA_enableTransfers(DMA_CHANNEL_0); //won't start until ADC conversion end trigger
-
-    __enable_interrupt(); //enable global interrupts
+	DMA_enableTransfers(DMA_CHANNEL_0); //won't start until ADC conversion end trigger*/
 
     while (1) {
-    	if (start_recording) {
-    	    ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
-    	} else if (stop_recording) {
-    		ADC12_B_disableConversions(ADC12_B_BASE, ADC12_B_PREEMPTCONVERSION);
-    		//disable all interrupts? --> interrupts already disabled in SPI_sendFrame()
-    		SPI_init();
-    		SDCardLib_init(&sdCardLib, &sdIntf_MSP430FR5994LP); //initialize SDCard library
-    		SDCardLib_writeString(&sdCardLib, "sample.raw", snd_buffer); //how to make sure it writes all of snd_buffer?
-    		while(1);
-    	}
+            if (start_recording) {
+                ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
+                led_toggle();
+            } else if (stop_recording) {
+                ADC12_B_disableConversions(ADC12_B_BASE, ADC12_B_PREEMPTCONVERSION);
+                //disable all interrupts? --> interrupts already disabled in SPI_sendFrame()
+                SPI_init();
+                SDCardLib_init(&sdCardLib, &sdIntf_MSP430FR5994LP); //initialize SDCard library
+                SDCardLib_writeString(&sdCardLib, "sample.txt", "test this audio file maker"); //how to make sure it writes all of snd_buffer?
+                stop_recording = 0;
+                start_recording = 0;
+                led_toggle();
+                while(1);
+            }
     }
     return 0;
 }
 
 #pragma vector=PORT4_VECTOR
 __interrupt void PORT4_ISR() {
-	led_toggle();
-	button_clearInterrupt();
-	if(!(start_recording || stop_recording)) { //start recording
+	if(!start_recording && !stop_recording) { //start recording
 		start_recording = 1;
 	} else if ((start_recording) && (!stop_recording)) {//stop recording
 		start_recording = 0;
 		stop_recording = 1;
 	}
+	button_clearInterrupt();
 }
