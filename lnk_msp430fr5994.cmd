@@ -47,7 +47,7 @@
 /* -heap   0x0100                                   HEAP AREA SIZE            */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-/* 1.201 */
+/* Version: 1.200                                                             */
 /*----------------------------------------------------------------------------*/
 
 /****************************************************************************/
@@ -165,7 +165,7 @@ SECTIONS
         } PALIGN(0x0400), RUN_START(fram_ipe_start) RUN_END(fram_ipe_end) RUN_END(fram_rx_start)
 
     } > 0x4000
-
+	.TI.persistent    : {}  > FRAM2
     .cinit            : {}  > FRAM          /* Initialization tables             */
     .binit            : {}  > FRAM          /* Boot-time Initialization tables   */
     .pinit            : {}  > FRAM          /* C++ Constructor tables            */
@@ -180,7 +180,7 @@ SECTIONS
     .const            : {} >> FRAM | FRAM2  /* Constant data                     */
 #endif
 
-#ifndef __LARGE_CODE_MODEL__
+#ifndef __LARGE_DATA_MODEL__
     .text             : {} > FRAM           /* Code                              */
 #else
     .text             : {} >> FRAM2 | FRAM  /* Code                              */
@@ -188,7 +188,7 @@ SECTIONS
 
     #ifdef __TI_COMPILER_VERSION__
         #if __TI_COMPILER_VERSION__ >= 15009000
-            #ifndef __LARGE_CODE_MODEL__
+            #ifndef __LARGE_DATA_MODEL__
                 .TI.ramfunc : {} load=FRAM, run=RAM, table(BINIT)
             #else
                 .TI.ramfunc : {} load=FRAM | FRAM2, run=RAM, table(BINIT)

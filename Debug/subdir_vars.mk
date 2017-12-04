@@ -10,44 +10,50 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../adc.c \
+../dma.c \
 ../led.c \
 ../main.c \
 ../mom_button.c \
-../timer.c 
+../spi.c 
 
 C_DEPS += \
 ./adc.d \
+./dma.d \
 ./led.d \
 ./main.d \
 ./mom_button.d \
-./timer.d 
+./spi.d 
 
 OBJS += \
 ./adc.obj \
+./dma.obj \
 ./led.obj \
 ./main.obj \
 ./mom_button.obj \
-./timer.obj 
+./spi.obj 
 
 OBJS__QUOTED += \
 "adc.obj" \
+"dma.obj" \
 "led.obj" \
 "main.obj" \
 "mom_button.obj" \
-"timer.obj" 
+"spi.obj" 
 
 C_DEPS__QUOTED += \
 "adc.d" \
+"dma.d" \
 "led.d" \
 "main.d" \
 "mom_button.d" \
-"timer.d" 
+"spi.d" 
 
 C_SRCS__QUOTED += \
 "../adc.c" \
+"../dma.c" \
 "../led.c" \
 "../main.c" \
 "../mom_button.c" \
-"../timer.c" 
+"../spi.c" 
 
 

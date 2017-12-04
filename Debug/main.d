@@ -4,6 +4,8 @@ main.obj: ../main.c
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/linkage.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdarg.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdint.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdbool.h
 main.obj: C:/ti/ccsv7/ccs_base/msp430/include/msp430.h
 main.obj: C:/ti/ccsv7/ccs_base/msp430/include/msp430fr5994.h
 main.obj: C:/ti/ccsv7/ccs_base/msp430/include/in430.h
@@ -12,8 +14,6 @@ main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/intrinsics
 main.obj: C:/ti/ccsv7/ccs_base/msp430/include/legacy.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h
-main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdint.h
-main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdbool.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/adc12_b.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/aes256.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/comp_e.h
@@ -51,9 +51,19 @@ main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5x
 main.obj: ../led.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h
-main.obj: ../timer.h
-main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: ../adc.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
+main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h
+main.obj: ../spi.h
+main.obj: ../FatFs/sdcard.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/string.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/assert.h
+main.obj: ../FatFs/ff.h
+main.obj: ../FatFs/integer.h
+main.obj: ../FatFs/ffconf.h
+main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h
+main.obj: ../dma.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h
 main.obj: ../mom_button.h
@@ -64,6 +74,8 @@ main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5x
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/linkage.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdbool.h: 
 C:/ti/ccsv7/ccs_base/msp430/include/msp430.h: 
 C:/ti/ccsv7/ccs_base/msp430/include/msp430fr5994.h: 
 C:/ti/ccsv7/ccs_base/msp430/include/in430.h: 
@@ -72,8 +84,6 @@ C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/intrinsics_legacy_un
 C:/ti/ccsv7/ccs_base/msp430/include/legacy.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/inc/hw_memmap.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdint.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdbool.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/adc12_b.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/aes256.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/comp_e.h: 
@@ -111,9 +121,19 @@ C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/wdt_
 ../led.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h: 
-../timer.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 ../adc.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
+C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h: 
+../spi.h: 
+../FatFs/sdcard.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/string.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/assert.h: 
+../FatFs/ff.h: 
+../FatFs/integer.h: 
+../FatFs/ffconf.h: 
+C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h: 
+../dma.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/driverlib/MSP430FR5xx_6xx/driverlib.h: 
 ../mom_button.h: 
