@@ -24,5 +24,5 @@ void dma_init() {
 
 	DMA_init(&param);
 
-	DMA_enableInterrupt(DMA_CHANNEL_0);
+	//DMA_enableInterrupt(DMA_CHANNEL_0); do we need interrupts for DMA?
 }

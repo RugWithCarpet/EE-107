@@ -11,6 +11,7 @@
 
 bool volatile start_recording = 0;
 bool volatile stop_recording = 0;
+bool volatile recording = 0;
 
 #pragma PERSISTENT(snd_buffer)
 uint8_t snd_buffer[128000] = {0}; //128 kB of data for sound = (2 sec)(32000 sample/sec)(2 bytes/sample)
@@ -21,11 +22,11 @@ int main(void)
 	PMM_unlockLPM5(); //does this have to be done before or after changing pin settings?
 
 	CS_setExternalClockSource(32768, 8000000); //LFXT is 32KHz, HFXT is 8MHz
-	CS_turnOnHFXT(CS_HFXT_DRIVE_4MHZ_8MHZ); //turn on HFXT
 
     CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1); //Set MCLK to HFXT, with divider=1 (8 MHz)
     CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_2); //Set SMCLK to HFXT, with divider=2 (4 MHz)
 
+	CS_turnOnHFXTWithTimeout(CS_HFXT_DRIVE_4MHZ_8MHZ, 10); //turn on HFXT
     CS_turnOnSMCLK();
 
 	button_init();
@@ -50,13 +51,16 @@ int main(void)
     while (1) {
             if (start_recording) {
                 ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
-                led_toggle();
+                led_on();
+                recording = 1;
+                start_recording = 0;
             } else if (stop_recording) {
+            	led_off();
                 ADC12_B_disableConversions(ADC12_B_BASE, ADC12_B_PREEMPTCONVERSION);
-                uart_tx_byte(snd_buffer[0]);
-                //disable all interrupts? --> interrupts already disabled in SPI_sendFrame()
+                uart_tx_byte('A'); //test send
+                recording = 0;
                 stop_recording = 0;
-                led_toggle();
+                //disable all interrupts? --> interrupts already disabled in SPI_sendFrame()
                 while(1);
             }
     }
@@ -65,10 +69,9 @@ int main(void)
 
 #pragma vector=PORT4_VECTOR
 __interrupt void PORT4_ISR() {
-	if(!start_recording && !stop_recording) { //start recording
+	if(!recording) { //start recording
 		start_recording = 1;
-	} else if ((start_recording) && (!stop_recording)) {//stop recording
-		start_recording = 0;
+	} else if (recording) {//stop recording
 		stop_recording = 1;
 	}
 	button_clearInterrupt();
