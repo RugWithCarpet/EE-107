@@ -40,13 +40,13 @@ void uart_init() {
 	param.msborLsbFirst = EUSCI_A_UART_LSB_FIRST; //least significant bit first
 	param.numberofStopBits = EUSCI_A_UART_ONE_STOP_BIT; //one stop bit
 	//Baud rate: user guide page 762
-	// N = 32.768kHz/9600, N-INT(N) = 0.413333
+	// N = 32.768kHz/115200, N-INT(N) = 0.413333
 	// From table 30-4, we need to set UCBRSx to 0x08
 	// and set UCBRx to 3
-	param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_ACLK; //32.768kHz
+	param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK; // 1MHz
 	param.overSampling = EUSCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION; //oversampling is off because we're using LFCLK
-	param.secondModReg = 0x92; //Sets UCBRSx
-	param.clockPrescalar = 3; //sets UCBRx
+	param.secondModReg = 0xD6; //Sets UCBRSx
+	param.clockPrescalar = 8; //sets UCBRx
 
 	//initialize A_UART
 	if(STATUS_FAIL == EUSCI_A_UART_init(EUSCI_A1_BASE, &param)) {return;}
