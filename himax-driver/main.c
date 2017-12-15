@@ -1,4 +1,3 @@
-#include <dma2.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -8,66 +7,44 @@
 #include "adc.h"
 #include "mom_button.h"
 #include "uart.h"
+#include <dma2.h>
 
 bool volatile start_recording = 0;
 bool volatile stop_recording = 0;
 bool volatile recording = 0;
-
-#pragma PERSISTENT(snd_buffer)
-uint8_t snd_buffer[128000] = {0}; //128 kB of data for sound = (2 sec)(32000 sample/sec)(2 bytes/sample)
+uint32_t* volatile adc_mem_address = 0;
 
 int main(void)
 {
 	WDT_A_hold(WDT_A_BASE); // stop watchdog
 	PMM_unlockLPM5(); //does this have to be done before or after changing pin settings?
 
-	CS_setExternalClockSource(32768, 8000000); //LFXT is 32KHz, HFXT is 8MHz
-
-    CS_initClockSignal(CS_MCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_1); //Set MCLK to HFXT, with divider=1 (8 MHz)
-    CS_initClockSignal(CS_SMCLK, CS_HFXTCLK_SELECT, CS_CLOCK_DIVIDER_2); //Set SMCLK to HFXT, with divider=2 (4 MHz)
-
-	CS_turnOnHFXTWithTimeout(CS_HFXT_DRIVE_4MHZ_8MHZ, 10); //turn on HFXT
+	//Use DCO to set MCLK and SMCLK
+    CS_setDCOFreq(CS_DCORSEL_0, CS_DCOFSEL_6); //Set DCO to 8 MHz
+    CS_initClockSignal(CS_MCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_1); //Set MCLK to DCO, with divider=1 (8 MHz)
+    CS_initClockSignal(CS_SMCLK, CS_DCOCLK_SELECT, CS_CLOCK_DIVIDER_4); //Set SMCLK to DCO, with divider=4 (2 MHz)
     CS_turnOnSMCLK();
 
 	button_init();
 	led_init();
 	uart_init();
     adc_init();
-    dma_init();
 
     __enable_interrupt(); //enable global interrupts
 
-	//data is in memory register for ADC channel 5; 2 bytes are transfered at a time -> don't need to change address
-	DMA_setSrcAddress(DMA_CHANNEL_0,
-					  ADC12_B_getMemoryAddressForDMA(ADC12_B_BASE, ADC12_B_MEMORY_5),
-					  DMA_DIRECTION_UNCHANGED);
-
-	DMA_setDstAddress(DMA_CHANNEL_0,
-					  (uint32_t) snd_buffer, //does this need to be dereferenced?
-					  DMA_DIRECTION_INCREMENT);
-	DMA_enableTransfers(DMA_CHANNEL_0); //won't start until ADC conversion end trigger
+    adc_mem_address = ADC12_B_getMemoryAddressForDMA(ADC12_B_BASE, ADC12_B_MEMORY_5);
 
     while (1) {
             if (start_recording) {
-                /*ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
+                ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
                 led_on();
                 recording = 1;
-                start_recording = 0;*/
+                start_recording = 0;
             } else if (stop_recording) {
-            	    /*led_off();
+            	led_off();
                 ADC12_B_disableConversions(ADC12_B_BASE, ADC12_B_PREEMPTCONVERSION);
-                uart_tx_byte('0');
-                uart_tx_byte(snd_buffer[0]);
-                uart_tx_byte('1');//test send
-                uart_tx_byte(snd_buffer[1]);
-                uart_tx_byte('2');
-                uart_tx_byte(snd_buffer[2]);
-                uart_tx_byte('3');
-                uart_tx_byte(snd_buffer[3]);
                 recording = 0;
                 stop_recording = 0;
-                //disable all interrupts? --> interrupts already disabled in SPI_sendFrame()
-                //while(1);*/
             }
     }
     return 0;
@@ -75,21 +52,16 @@ int main(void)
 
 #pragma vector=PORT4_VECTOR
 __interrupt void PORT4_ISR() {
-    uart_tx_byte('B');
-	/*if(!recording) { //start recording
+    if(!recording) { //start recording
 		start_recording = 1;
 	} else if (recording) {//stop recording
 		stop_recording = 1;
-	}*/
-	button_clearInterrupt();
+	}
+    button_clearInterrupt();
 }
 
-#pragma vector=DMA_VECTOR
-__interrupt void DMA_ISR() {
-    DMA_clearInterrupt(DMA_CHANNEL_0);
-}
-
-#pragma vector=ADC12_VECTOR
-__interrupt void ADC12_VECTOR() {
-    uartADC12_B_getMemoryAddressForDMA(ADC12_B_BASE, ADC12_B_MEMORY_5)
+#pragma vector=ADC12_B_VECTOR
+__interrupt void ADC12_ISR() {
+	uart_tx_byte(*adc_mem_address); //disables interrupts while sending (in SPI_sendFrame)
+	ADC12_B_clearInterrupt(ADC12_B_BASE, 0, ADC12_B_IFG5);
 }

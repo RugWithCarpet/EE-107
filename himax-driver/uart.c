@@ -8,21 +8,6 @@
 #include "uart.h"
 
 void uart_init() {
-	// * Setup crystal clock (LFXT low frequency crystal) on Port J
-	// * Set Pin 4, 5 to input Primary Module Function, LFXT.
-	// * Math is easier for baud rate with this low-frequency clock.
-
-	GPIO_setAsPeripheralModuleFunctionInputPin(
-			GPIO_PORT_PJ,
-			GPIO_PIN4 + GPIO_PIN5,
-			GPIO_PRIMARY_MODULE_FUNCTION
-	);
-
-	//Set ACLK=LFXT
-	CS_initClockSignal(CS_ACLK,CS_LFXTCLK_SELECT,CS_CLOCK_DIVIDER_1);
-	//Start XT1 with no time out
-	CS_turnOnLFXT(CS_LFXT_DRIVE_0);
-
 	// Configure UART pins
 	//Set P2.5 and P2.6 as Secondary Module Function Input.
 	GPIO_setAsPeripheralModuleFunctionInputPin(
@@ -39,14 +24,15 @@ void uart_init() {
 	param.parity = EUSCI_A_UART_NO_PARITY; //no parity bits
 	param.msborLsbFirst = EUSCI_A_UART_LSB_FIRST; //least significant bit first
 	param.numberofStopBits = EUSCI_A_UART_ONE_STOP_BIT; //one stop bit
-	//Baud rate: user guide page 762
-	// N = 32.768kHz/115200, N-INT(N) = 0.413333
-	// From table 30-4, we need to set UCBRSx to 0x08
-	// and set UCBRx to 3
-	param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK; // 1MHz
-	param.overSampling = EUSCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION; //oversampling is off because we're using LFCLK
+	//Baud rate: user guide page 762, http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP430BaudRateConverter/index.html
+	// UCBRx: N = 2MHz/230400
+	// UCBRSx: N-INT(N) = 0.6806
+	// From table 30-4, we need to set UCBRSx to 0xD6
+	param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK; // 2MHz
+	param.overSampling = EUSCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION;
 	param.secondModReg = 0xD6; //Sets UCBRSx
 	param.clockPrescalar = 8; //sets UCBRx
+	param.firstModReg = 0;
 
 	//initialize A_UART
 	if(STATUS_FAIL == EUSCI_A_UART_init(EUSCI_A1_BASE, &param)) {return;}
@@ -55,34 +41,6 @@ void uart_init() {
 	EUSCI_A_UART_clearInterrupt(EUSCI_A1_BASE,
 								EUSCI_A_UART_RECEIVE_INTERRUPT);
 	return;
-
-/*	 set UART pin function
-	    GPIO_setAsPeripheralModuleFunctionInputPin(
-	        GPIO_PORT_P2,
-	        GPIO_PIN5 + GPIO_PIN6,
-	        GPIO_SECONDARY_MODULE_FUNCTION
-	    );
-
-	     reset UART module
-	    EUSCI_A_UART_disable(EUSCI_A1_BASE);
-
-	     prepare UART configuration struct
-	    EUSCI_A_UART_initParam param = {0};
-	    param.selectClockSource = EUSCI_A_UART_CLOCKSOURCE_SMCLK;
-	    param.clockPrescalar = 2;
-	    param.firstModReg = 2;
-	    param.secondModReg = 0xBB;
-	    param.parity = EUSCI_A_UART_NO_PARITY;
-	    param.msborLsbFirst = EUSCI_A_UART_LSB_FIRST;
-	    param.numberofStopBits = EUSCI_A_UART_ONE_STOP_BIT;
-	    param.uartMode = EUSCI_A_UART_MODE;
-	    param.overSampling = EUSCI_A_UART_OVERSAMPLING_BAUDRATE_GENERATION;
-
-	     configure UART module and enable it
-	    EUSCI_A_UART_init(EUSCI_A1_BASE, &param);
-	    EUSCI_A_UART_enable(EUSCI_A1_BASE);
-	    EUSCI_A_UART_clearInterrupt(EUSCI_A1_BASE, EUSCI_A_UART_RECEIVE_INTERRUPT);
-	    return;*/
 }
 
 void uart_tx_byte(uint8_t data) {

@@ -10,7 +10,7 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../adc.c \
-../dma.c \
+../dma2.c \
 ../led.c \
 ../main.c \
 ../mom_button.c \
@@ -18,7 +18,7 @@ C_SRCS += \
 
 C_DEPS += \
 ./adc.d \
-./dma.d \
+./dma2.d \
 ./led.d \
 ./main.d \
 ./mom_button.d \
@@ -26,7 +26,7 @@ C_DEPS += \
 
 OBJS += \
 ./adc.obj \
-./dma.obj \
+./dma2.obj \
 ./led.obj \
 ./main.obj \
 ./mom_button.obj \
@@ -34,7 +34,7 @@ OBJS += \
 
 OBJS__QUOTED += \
 "adc.obj" \
-"dma.obj" \
+"dma2.obj" \
 "led.obj" \
 "main.obj" \
 "mom_button.obj" \
@@ -42,7 +42,7 @@ OBJS__QUOTED += \
 
 C_DEPS__QUOTED += \
 "adc.d" \
-"dma.d" \
+"dma2.d" \
 "led.d" \
 "main.d" \
 "mom_button.d" \
@@ -50,7 +50,7 @@ C_DEPS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../adc.c" \
-"../dma.c" \
+"../dma2.c" \
 "../led.c" \
 "../main.c" \
 "../mom_button.c" \

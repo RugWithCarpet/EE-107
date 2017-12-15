@@ -49,13 +49,13 @@ main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverl
 main.obj: ../adc.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h
-main.obj: ../dma.h
-main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
-main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h
 main.obj: ../mom_button.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h
 main.obj: ../uart.h
+main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
+main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h
+main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/dma2.h
 main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h
 main.obj: C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h
 
@@ -108,12 +108,12 @@ C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430F
 ../adc.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h: 
-../dma.h: 
-C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
-C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h: 
 ../mom_button.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h: 
 ../uart.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
+C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h: 
+C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/dma2.h: 
 C:/ti/ccsv7/tools/compiler/ti-cgt-msp430_16.9.4.LTS/include/stdio.h: 
 C:/Users/Vickram\ Gidwani/Documents/GitHub/EE-107/himax-driver/driverlib/MSP430FR5xx_6xx/driverlib.h: 

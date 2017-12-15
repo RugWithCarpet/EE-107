@@ -16,31 +16,38 @@ void adc_init() {
 			GPIO_TERNARY_MODULE_FUNCTION
 	);
 
-	//14 clock cycles for 12 bit conversion
-	//2 clock cycles for between sampling and conversion
-	//32 clock cycles for sampling/hold
-	//minimum of 50 clock cycles per period
-	//4 MHz SMCLK
-	//32 kHz sampling clock
+	//10 clock cycles for 8 bit conversion (in setResolution below)
+	//2 clock cycles between sampling and conversion
+	//16 clock cycles for sampling/hold (in setupSamplingTimer below)
+	//minimum of 30 clock cycles per period (don't want timerPeriod to go below 30)
+	//1 MHz SMCLK
+	//(4, 8, 16, 25) kHz sampling clock
 	Timer_A_stop(TA0_BASE);
 	Timer_A_clear(TA0_BASE);
 	Timer_A_clearTimerInterrupt(TA0_BASE);
 
-	//setup TimerA to be 32kHz clock
+	//setup TimerA to be (4, 8, 16, 25) kHz clock
 	Timer_A_initUpModeParam timer_param = {0};
 	timer_param.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
 	timer_param.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
 	timer_param.startTimer = 0; //FALSE
-	timer_param.timerPeriod = 124; //125 total counts
+
+	//to achieve 4 kHz: timerPeriod = 499
+	//to achieve 8 kHz: timerPeriod = 249
+	//to achieve 16 kHz: timerPeriod = 124
+	//to achieve 25 kHz: timerPeriod = 79
+	timer_param.timerPeriod = 79;
 	timer_param.timerInterruptEnable_TAIE = TIMER_A_TAIE_INTERRUPT_DISABLE;
 	timer_param.captureCompareInterruptEnable_CCR0_CCIE = TIMER_A_CCIE_CCR0_INTERRUPT_DISABLE; //disable, not necessary
 	Timer_A_initUpMode(TA0_BASE, &timer_param);
 
-	//setup CCR1 to have output that goes high every cycle of TimerA
+	//setup CCR1 to have output that goes high for one clock cycle during each cycle of TimerA
 	Timer_A_initCompareModeParam CCR1_param = {0};
 	CCR1_param.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_1;
-	CCR1_param.compareValue = 123; //gets set at 123
-	CCR1_param.compareOutputMode = TIMER_A_OUTPUTMODE_SET_RESET; //gets reset when CCR0 hits 124
+
+	//set to timerPeriod-1, so that it is high for 1 clock cycle (pulse input to ADC)
+	CCR1_param.compareValue = 78; //gets set at timerPeriod-1
+	CCR1_param.compareOutputMode = TIMER_A_OUTPUTMODE_SET_RESET; //gets reset when CCR0 hits timerPeriod
 	CCR1_param.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_DISABLE;
 	Timer_A_initCompareMode(TA0_BASE, &CCR1_param);
 
@@ -52,16 +59,18 @@ void adc_init() {
 
 	ADC12_B_initParam adc_param = {0};
 	adc_param.clockSourceDivider = ADC12_B_CLOCKDIVIDER_1;
-	adc_param.clockSourceSelect = ADC12_B_CLOCKSOURCE_SMCLK;
+	adc_param.clockSourceSelect = ADC12_B_CLOCKSOURCE_SMCLK; //2 MHz clock
 	adc_param.clockSourcePredivider = ADC12_B_CLOCKPREDIVIDER__1;
 	adc_param.internalChannelMap = ADC12_B_NOINTCH;
 	adc_param.sampleHoldSignalSourceSelect = ADC12_B_SAMPLEHOLDSOURCE_1; //Output of TA0_CCR1
 	ADC12_B_init(ADC12_B_BASE, &adc_param);
 
+	ADC12_B_setResolution(ADC12_B_BASE, ADC12_B_RESOLUTION_8BIT); //8 bit resolution
+
 	ADC12_B_setupSamplingTimer(
 			ADC12_B_BASE,
-			ADC12_B_CYCLEHOLD_32_CYCLES, //8 us of 4 MHz clock
-			ADC12_B_CYCLEHOLD_32_CYCLES,
+			ADC12_B_CYCLEHOLD_16_CYCLES, //8 us of 2 MHz clock
+			ADC12_B_CYCLEHOLD_16_CYCLES,
 			ADC12_B_MULTIPLESAMPLESDISABLE
 	);
 
