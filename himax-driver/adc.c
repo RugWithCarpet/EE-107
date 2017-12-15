@@ -1,8 +1,10 @@
 /*
  * adc.c
  *
- *  Created on: Nov 29, 2017
+ *  Created: 11/2017
  *      Author: Vickram Gidwani
+ *
+ *
  */
 
 
@@ -20,7 +22,7 @@ void adc_init() {
 	//2 clock cycles between sampling and conversion
 	//16 clock cycles for sampling/hold (in setupSamplingTimer below)
 	//minimum of 30 clock cycles per period (don't want timerPeriod to go below 30)
-	//1 MHz SMCLK
+	//2 MHz SMCLK
 	//(4, 8, 16, 25) kHz sampling clock
 	Timer_A_stop(TA0_BASE);
 	Timer_A_clear(TA0_BASE);
@@ -28,7 +30,7 @@ void adc_init() {
 
 	//setup TimerA to be (4, 8, 16, 25) kHz clock
 	Timer_A_initUpModeParam timer_param = {0};
-	timer_param.clockSource = TIMER_A_CLOCKSOURCE_SMCLK;
+	timer_param.clockSource = TIMER_A_CLOCKSOURCE_SMCLK; //2 MHz
 	timer_param.clockSourceDivider = TIMER_A_CLOCKSOURCE_DIVIDER_1;
 	timer_param.startTimer = 0; //FALSE
 
@@ -41,12 +43,14 @@ void adc_init() {
 	timer_param.captureCompareInterruptEnable_CCR0_CCIE = TIMER_A_CCIE_CCR0_INTERRUPT_DISABLE; //disable, not necessary
 	Timer_A_initUpMode(TA0_BASE, &timer_param);
 
+
 	//setup CCR1 to have output that goes high for one clock cycle during each cycle of TimerA
 	Timer_A_initCompareModeParam CCR1_param = {0};
 	CCR1_param.compareRegister = TIMER_A_CAPTURECOMPARE_REGISTER_1;
 
 	//set to timerPeriod-1, so that it is high for 1 clock cycle (pulse input to ADC)
 	CCR1_param.compareValue = 78; //gets set at timerPeriod-1
+
 	CCR1_param.compareOutputMode = TIMER_A_OUTPUTMODE_SET_RESET; //gets reset when CCR0 hits timerPeriod
 	CCR1_param.compareInterruptEnable = TIMER_A_CAPTURECOMPARE_INTERRUPT_DISABLE;
 	Timer_A_initCompareMode(TA0_BASE, &CCR1_param);
@@ -79,7 +83,7 @@ void adc_init() {
 	mem5_param.inputSourceSelect = ADC12_B_INPUT_A5;
 	mem5_param.memoryBufferControlIndex = ADC12_B_MEMORY_5;
 	mem5_param.endOfSequence = ADC12_B_NOTENDOFSEQUENCE;
-	mem5_param.refVoltageSourceSelect = ADC12_B_VREFPOS_AVCC_VREFNEG_VSS;
+	mem5_param.refVoltageSourceSelect = ADC12_B_VREFPOS_AVCC_VREFNEG_VSS; //use V++ and V-- of microcontroller
 	mem5_param.windowComparatorSelect = ADC12_B_WINDOW_COMPARATOR_DISABLE;
 	ADC12_B_configureMemory(ADC12_B_BASE, &mem5_param);
 

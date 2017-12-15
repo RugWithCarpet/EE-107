@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v16.9.4                     
 ******************************************************************************
->> Linked Thu Dec 14 17:57:53 2017
+>> Linked Fri Dec 15 10:22:34 2017
 
 OUTPUT FILE NAME:   <Auto-Dictator.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 00004046

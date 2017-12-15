@@ -1,8 +1,10 @@
 /*
  * led.c
  *
- *  Created on: Oct 6, 2017
+ *  Created: 10/2017
  *      Author: Vickram Gidwani
+ *
+ *      IMPLEMENTS CONTROLLABLE LED FOR USE AS AN INDICATOR
  */
 
 #include "led.h"

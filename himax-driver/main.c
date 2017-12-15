@@ -1,3 +1,14 @@
+/*
+ * AUTO-DICTATOR
+ * December, 2017
+ * EE 107, Stanford
+ *
+ * Authors: Vickram Gidwani, Raymond Reynolds, Alex Kucy
+ *
+ * Implements a button-controllable microphone that is sampled by an ADC and audio samples are streamed via UART
+ */
+
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -17,7 +28,7 @@ uint32_t* volatile adc_mem_address = 0;
 int main(void)
 {
 	WDT_A_hold(WDT_A_BASE); // stop watchdog
-	PMM_unlockLPM5(); //does this have to be done before or after changing pin settings?
+	PMM_unlockLPM5(); //disable high-impedance mode to configure port settings
 
 	//Use DCO to set MCLK and SMCLK
     CS_setDCOFreq(CS_DCORSEL_0, CS_DCOFSEL_6); //Set DCO to 8 MHz
@@ -35,15 +46,15 @@ int main(void)
     adc_mem_address = ADC12_B_getMemoryAddressForDMA(ADC12_B_BASE, ADC12_B_MEMORY_5);
 
     while (1) {
-            if (start_recording) {
-                ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL);
-                led_on();
-                recording = 1;
-                start_recording = 0;
-            } else if (stop_recording) {
-            	led_off();
-                ADC12_B_disableConversions(ADC12_B_BASE, ADC12_B_PREEMPTCONVERSION);
-                recording = 0;
+            if (start_recording) { //button just pressed --> do this once when starting to record
+                ADC12_B_startConversion(ADC12_B_BASE, ADC12_B_START_AT_ADC12MEM5, ADC12_B_REPEATED_SINGLECHANNEL); //start cibversions in ADC
+                led_on(); //LED indicator that conversions are happening
+                recording = 1; //go to 'recording' state
+                start_recording = 0; //only happens once so set start_recording to 0
+            } else if (stop_recording) { //button just pressed --> do this once when stopping to record
+            	led_off(); //LED indicator off
+                ADC12_B_disableConversions(ADC12_B_BASE, ADC12_B_PREEMPTCONVERSION); //stop conversions --> interrupt that triggers UART will also stop
+                recording = 0; //leave 'recording' state
                 stop_recording = 0;
             }
     }
@@ -62,6 +73,6 @@ __interrupt void PORT4_ISR() {
 
 #pragma vector=ADC12_B_VECTOR
 __interrupt void ADC12_ISR() {
-	uart_tx_byte(*adc_mem_address); //disables interrupts while sending (in SPI_sendFrame)
+	uart_tx_byte(*adc_mem_address); //send sample value; disables interrupts while sending (in SPI_sendFrame)
 	ADC12_B_clearInterrupt(ADC12_B_BASE, 0, ADC12_B_IFG5);
 }

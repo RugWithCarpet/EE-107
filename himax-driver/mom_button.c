@@ -1,8 +1,10 @@
 /*
  * mom_button.c
  *
- *  Created on: Nov 29, 2017
+ *  Created: 11/2017
  *      Author: Vickram Gidwani
+ *
+ *      IMPLEMENTS MOMENTARY BUTTON AS INPUT SWITCH WITH INTERRUPT
  */
 
 #include "mom_button.h"
@@ -13,7 +15,7 @@ void button_init() {
 			GPIO_PIN4
 	);
 
-	GPIO_setAsInputPinWithPullDownResistor(
+	GPIO_setAsInputPinWithPullDownResistor( //need pulldown resistor so pin goes low when button not pressed
 			GPIO_PORT_P4,
 			GPIO_PIN4
 	);
