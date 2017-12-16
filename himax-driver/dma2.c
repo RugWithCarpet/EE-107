@@ -1,10 +1,10 @@
 /*
- * dma.c
+ * dma2.c
  *
  *  Created: 12/2017
  *      Author: Vickram Gidwani
  *
- *      NOT USED IN THIS PROJECT
+ *	NOT USED IN THIS PROJECT
  */
 
 #include <dma2.h>

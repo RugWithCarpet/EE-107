@@ -4,7 +4,15 @@
  *  Created: 11/2017
  *      Author: Vickram Gidwani
  *
+ *	IMPLEMENTS ADC SAMPLING AT PROGRAMMABLE FREQUENCY AND 8-BIT RESOLUTION
+ *	TO CHANGE THE FREQUENCY, timer_param.timerPeriod AND CCR1_param.compareValue NEED TO BE CHANGED
  *
+ *	SAMPLING FREQUENCY (kHz)	| timer_param.timerPeriod	| CCR1_param.compareValue
+ *	----------------------------|---------------------------|-------------------------
+ *		4						|			499				|			498
+ *		8						|			249				|			248
+ *		16						|			124				|			123
+ *		25						|			79				|			78
  */
 
 

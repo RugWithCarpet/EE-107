@@ -4,7 +4,7 @@
  *  Created: 11/2017
  *      Author: Vickram Gidwani
  *
- *      IMPLEMENTS MOMENTARY BUTTON AS INPUT SWITCH WITH INTERRUPT
+ *	IMPLEMENTS MOMENTARY BUTTON AS INPUT SWITCH WITH INTERRUPT
  */
 
 #include "mom_button.h"

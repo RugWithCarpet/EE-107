@@ -3,6 +3,8 @@
  *
  *  Created: 10/2017
  *      Author: Vickram Gidwani
+ *
+ *	IMPLEMENTS UART TRANSMISSION AT 230400 BAUD RATE
  */
 
 #include "uart.h"

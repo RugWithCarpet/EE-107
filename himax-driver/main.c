@@ -18,7 +18,6 @@
 #include "adc.h"
 #include "mom_button.h"
 #include "uart.h"
-#include <dma2.h>
 
 bool volatile start_recording = 0;
 bool volatile stop_recording = 0;
