@@ -21,7 +21,7 @@ Sampling Frequency (kHz)	| timer_param.timerPeriod	| CCR1_param.compareValue
 	25						|			79				|			78
 
 
-In addition to the code in the project is the UART_RX.py serial recieve code. This code also needs to be adjusted according the sampling frequency chosen. Firstly, the 'freq' parameter needs to be changed to the kHz value of sampling frequency chosen (4, 8, 16, 25). The 'samplingTime' parameter can also be changed to adjust the number of seconds for which samples are collected, but the default value of 5 is good for testing.
+In addition to the code in the project is the UART_RX.py serial recieve code. This file requires the pyserial python package to run. This code also needs to be adjusted according the sampling frequency chosen. Firstly, the 'freq' parameter needs to be changed to the kHz value of sampling frequency chosen (4, 8, 16, 25). The 'samplingTime' parameter can also be changed to adjust the number of seconds for which samples are collected, but the default value of 5 is good for testing.
 
 
 

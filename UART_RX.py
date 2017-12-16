@@ -1,3 +1,9 @@
+## Auto-Dictator ##
+## Computer-side serial receive python code ##
+## Raymond Reynolds ##
+## Vickram Gidwani ##
+## Alex Kucy ##
+
 import serial #pyserial package
 import time
 
